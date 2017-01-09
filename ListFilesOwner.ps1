@@ -53,4 +53,3 @@ else {
 
 # Display the new name
 "New filename: $nameOnly-$DateStamp$extOnly"
-
