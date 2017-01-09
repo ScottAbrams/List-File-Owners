@@ -9,7 +9,7 @@ Param ([string]$folder="",[string]$skip="NULL")
 # set array and make it empty
 $arr = @()
 
-gci $folder -recurse | ?{ $_.fullname -notmatch "\\$skip\\?" } | ? {$_.PSIsContainer -eq $False} | % {
+Get-Childitem $folder -recurse | Where-Object{ $_.fullname -notmatch "\\$skip\\?" } | Where-Object {$_.PSIsContainer -eq $False} | ForEach-Object {
   $obj = New-Object PSObject
   $obj | Add-Member NoteProperty Directory $_.DirectoryName 
   $obj | Add-Member NoteProperty Name $_.Name
@@ -19,7 +19,7 @@ gci $folder -recurse | ?{ $_.fullname -notmatch "\\$skip\\?" } | ? {$_.PSIsConta
   $obj | Add-Member NoteProperty LastWrite $_.LastWriteTime
   $arr += $obj
   $count = $count+1
-  Write-Host $count " " + $_.Directory #-NoNewline 
+  Write-Host $count " " + $_.Directory
   } 
 
  # Export to CSV file
