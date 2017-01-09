@@ -54,16 +54,3 @@ else {
 # Display the new name
 "New filename: $nameOnly-$DateStamp$extOnly"
 
-<#
-gci $folder -recurse  | ?{ $_.fullname -notmatch "\\$skip\\?" } | ? {$_.PSIsContainer -eq $False} | % {
-  $obj = New-Object PSObject
-  $obj | Add-Member NoteProperty Directory $_.DirectoryName
-  $obj | Add-Member NoteProperty Name $_.Name
-  $obj | Add-Member NoteProperty Length $_.Length
-  $obj | Add-Member NoteProperty Owner ((Get-ACL $_.FullName).Owner)
-  $obj | Add-Member NoteProperty Created $_.CreationTime
-  $obj | Add-Member NoteProperty LastWrite $_.LastWriteTime
-  $arr += $obj
-  $arr | Format-Table -Property Directory
-  }
-  #>
